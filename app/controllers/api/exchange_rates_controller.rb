@@ -8,6 +8,7 @@ class Api::ExchangeRatesController < ApplicationController
       else
         [ExchangeRate.latest]
       end
+    rates_cable(exchange_rates)
     render json: { exchange_rates: exchange_rates }
   end
 
@@ -19,5 +20,14 @@ class Api::ExchangeRatesController < ApplicationController
     else
       render json: { errors: rate.errors, status: :unprocessable_entity }
     end
+  end
+
+  private
+
+  def rates_cable(exchange_rates)
+    ActionCable.server.broadcast(
+      'rates_channel',
+      exchange_rates: exchange_rates
+    )
   end
 end

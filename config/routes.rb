@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   root 'main#index'
   get 'admin', to: 'main#index'
+
+  mount ActionCable.server => '/cable'
 end

@@ -9,6 +9,14 @@ const Home = () => {
       setExchangeRate(response.exchangeRates[0])
     })
   }, [])
+
+  App.rates = App.cable.subscriptions.create({
+      channel: 'RatesChannel',
+    }, {
+      received: (data) => {
+      setExchangeRate(data.exchangeRates[0])
+  }})
+
   return (
     <div>Курс: {exchangeRate ? exchangeRate.rate : ''}</div>
   )

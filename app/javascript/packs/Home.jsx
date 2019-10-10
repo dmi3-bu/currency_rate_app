@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import ExchangeRateEndpoint from "./endpoints";
-// import 'src/css/cssindex.css'
+import ExchangeRateEndpoint from './endpoints'
 
 const Home = () => {
   const [exchangeRate, setExchangeRate] = useState(null)
 
   useEffect(() => {
-    // document.title = `Вы нажали ${count} раз`
     ExchangeRateEndpoint.getExchangeRates().then((response) => {
-      setExchangeRate(response.exchangeRate)
+      setExchangeRate(response.exchangeRates[0])
     })
   }, [])
   return (

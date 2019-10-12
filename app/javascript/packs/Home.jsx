@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ExchangeRateEndpoint from './endpoints'
+import { camelizeKeys } from 'humps'
 
 const Home = () => {
   const [exchangeRate, setExchangeRate] = useState(null)
@@ -14,7 +15,7 @@ const Home = () => {
       channel: 'RatesChannel',
     }, {
       received: (data) => {
-      setExchangeRate(data.exchangeRates[0])
+        setExchangeRate(camelizeKeys(data).exchangeRates[0])
   }})
 
   return (

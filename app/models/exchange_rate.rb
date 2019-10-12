@@ -1,4 +1,5 @@
 class ExchangeRate < ApplicationRecord
+  default_scope { where(deleted_at: nil) }
   scope :admin, -> { where(admin: true) }
   scope :non_admin, -> { where(admin: false) }
 

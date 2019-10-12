@@ -8,7 +8,6 @@ class Api::ExchangeRatesController < ApplicationController
       else
         [ExchangeRate.latest]
       end
-    rates_cable(exchange_rates)
     render json: { exchange_rates: exchange_rates }
   end
 
@@ -16,6 +15,7 @@ class Api::ExchangeRatesController < ApplicationController
     rate = ExchangeRate.new(rate: params[:rate], admin: true, valid_till: params[:valid_till])
 
     if rate.save
+      send_cable
       render json: { status: :created }
     else
       render json: { errors: rate.errors, status: :unprocessable_entity }
@@ -24,10 +24,14 @@ class Api::ExchangeRatesController < ApplicationController
 
   private
 
-  def rates_cable(exchange_rates)
+  def send_cable
     ActionCable.server.broadcast(
       'rates_channel',
-      exchange_rates: exchange_rates
+      exchange_rates: [ExchangeRate.latest]
+    )
+    ActionCable.server.broadcast(
+      'admin_channel',
+      exchange_rates: ExchangeRate.admin
     )
   end
 end

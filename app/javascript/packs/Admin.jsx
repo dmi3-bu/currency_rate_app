@@ -22,12 +22,24 @@ const Admin = () => {
   return (
     <div>
       <AdminForm/>
+      <hr/>
       История:
-      {exchangeRates.map((exchangeRate) => (
-        <div key={exchangeRate.id}>
-          {exchangeRate.rate} - {exchangeRate.validTill}
-        </div>
-      ))}
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Курс</th>
+            <th scope="col">Активен до</th>
+          </tr>
+        </thead>
+        <tbody>
+          {exchangeRates.reverse().map((exchangeRate) => (
+            <tr key={exchangeRate.id}>
+              <td>{exchangeRate.rate}</td>
+              <td>{exchangeRate.validTill}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

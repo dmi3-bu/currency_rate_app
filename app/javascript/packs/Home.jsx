@@ -19,7 +19,9 @@ const Home = () => {
   }})
 
   return (
-    <div>Курс: {exchangeRate ? exchangeRate.rate : ''}</div>
+    <h1 className="display-4 text-center">
+      Курс USD/RUB: {exchangeRate ? exchangeRate.rate : ''}
+    </h1>
   )
 }
 

@@ -9,7 +9,8 @@ const AdminForm = () => {
     e.preventDefault()
     ExchangeRateEndpoint.createExchangeRate({ rate, validTill })
       .then((response) => {
-        response.errors
+        setRate('')
+        setValidTill('')
       })
   }
 
@@ -23,13 +24,17 @@ const AdminForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Курс:
-        <input type="text" value={rate} onChange={handleRateChange}/>
-      </label>
-      <label>Активен до:
-        <input type="datetime-local" value={validTill} onChange={handleValidTillChange}/>
-      </label>
-      <input type="submit" value="Отправить"/>
+      <div className="form-group">
+        <label>Курс:
+          <input type="text" className="form-control" value={rate} onChange={handleRateChange}/>
+        </label>
+      </div>
+      <div className="form-group">
+        <label>Активен до (в UTC):
+          <input type="datetime-local" className="form-control" value={validTill} onChange={handleValidTillChange}/>
+        </label>
+      </div>
+      <input type="submit" className="btn btn-primary" value="Отправить"/>
     </form>
   )
 }

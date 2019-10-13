@@ -1,24 +1,25 @@
 import React from 'react'
-// import 'src/css/cssindex.css'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
 import Home from './Home'
 import Admin from './Admin'
+import Layout from './Layout'
 
 const App = () => (
   <Router>
-    <Switch>
-      <Route path="/admin">
-        <Admin />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
+    <Layout>
+      <Switch>
+        <Route path="/admin">
+          <Admin />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Layout>
   </Router>
 )
 

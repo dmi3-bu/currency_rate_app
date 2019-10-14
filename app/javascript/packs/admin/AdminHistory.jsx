@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import ExchangeRateEndpoint from './endpoints'
-import AdminForm from './AdminForm'
 import { camelizeKeys } from 'humps'
+import ExchangeRateEndpoint from "../endpoints"
 
-const Admin = () => {
+const AdminHistory = () => {
   const [exchangeRates, setExchangeRates] = useState([])
 
   useEffect(() => {
@@ -11,6 +10,10 @@ const Admin = () => {
       setExchangeRates(response.exchangeRates)
     })
   }, [])
+
+  const convertDateTime = (dateTime) => {
+    return new Date(dateTime).toUTCString()
+  }
 
   App.rates = App.cable.subscriptions.create({
     channel: 'AdminChannel',
@@ -20,9 +23,7 @@ const Admin = () => {
     }})
 
   return (
-    <div>
-      <AdminForm/>
-      <hr/>
+    <React.Fragment>
       История:
       <table className="table table-bordered">
         <thead>
@@ -35,13 +36,13 @@ const Admin = () => {
           {exchangeRates.reverse().map((exchangeRate) => (
             <tr key={exchangeRate.id}>
               <td>{exchangeRate.rate}</td>
-              <td>{exchangeRate.validTill}</td>
+              <td>{convertDateTime(exchangeRate.validTill)}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </React.Fragment>
   )
 }
 
-export default Admin
+export default AdminHistory

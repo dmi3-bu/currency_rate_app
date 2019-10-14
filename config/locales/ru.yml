@@ -1,0 +1,11 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        exchange_rate:
+          attributes:
+            rate:
+              empty: 'Значение не должно быть пустым или отрицательным'
+            valid_till:
+              empty: 'Значение не должно быть пустым'
+              past: 'Время не может быть прошлым'

@@ -9,6 +9,8 @@ export default class ExchangeRateEndpoint{
   static createExchangeRate(data){
     const url = `api/exchange_rates`
     return axios.post(url, decamelizeKeys(data))
+      .then(response => camelizeKeys(response.data))
+      .catch(e => { throw camelizeKeys(e.response.data) })
   }
   static getAdminExchangeRates(){
     const url = `api/exchange_rates?admin=true`

@@ -16,9 +16,9 @@ class Api::ExchangeRatesController < ApplicationController
 
     if rate.save
       send_cable
-      render json: { status: :created }
+      render status: 201, json: {}
     else
-      render json: { errors: rate.errors, status: :unprocessable_entity }
+      render status: 422, json: { errors: rate.errors }
     end
   end
 

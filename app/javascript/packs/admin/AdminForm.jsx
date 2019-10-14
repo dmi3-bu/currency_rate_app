@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-import ExchangeRateEndpoint from './endpoints'
+import ExchangeRateEndpoint from '../endpoints'
 
 const AdminForm = () => {
   const [rate, setRate] = useState('')
   const [validTill, setValidTill] = useState('')
+  const [errors, setErrors] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault()
     ExchangeRateEndpoint.createExchangeRate({ rate, validTill })
-      .then((response) => {
-        setRate('')
-        setValidTill('')
-      })
+      .then(() => {
+          setErrors({})
+          setRate('')
+          setValidTill('')
+      }).catch((e) => setErrors(e.errors))
   }
 
   const handleRateChange = (e) => {
@@ -26,13 +28,21 @@ const AdminForm = () => {
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label>Курс:
-          <input type="text" className="form-control" value={rate} onChange={handleRateChange}/>
+          <input type="text"
+                 className="form-control"
+                 value={rate}
+                 onChange={handleRateChange}/>
         </label>
+        {errors.rate && <small className="form-text text-danger">{errors.rate}</small>}
       </div>
       <div className="form-group">
         <label>Активен до (в UTC):
-          <input type="datetime-local" className="form-control" value={validTill} onChange={handleValidTillChange}/>
+          <input type="datetime-local"
+                 className="form-control"
+                 value={validTill}
+                 onChange={handleValidTillChange}/>
         </label>
+        {errors.validTill && <small className="form-text text-danger">{errors.validTill}</small>}
       </div>
       <input type="submit" className="btn btn-primary" value="Отправить"/>
     </form>

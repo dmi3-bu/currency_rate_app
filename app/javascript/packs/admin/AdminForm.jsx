@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ExchangeRateEndpoint from '../endpoints'
+import { createExchangeRate } from '../endpoints'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -10,12 +10,12 @@ const AdminForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    ExchangeRateEndpoint.createExchangeRate({ rate, validTill })
+    createExchangeRate({ rate, validTill })
       .then(() => {
           setErrors({})
           setRate('')
           setValidTill('')
-      }).catch((e) => setErrors(e.errors))
+      }).catch((e) => { setErrors(e.errors || {})})
   }
 
   const handleRateChange = (e) => {

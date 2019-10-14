@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import ExchangeRateEndpoint from './endpoints'
+import { getExchangeRates } from './endpoints'
 import { camelizeKeys } from 'humps'
 
 const Home = () => {
   const [exchangeRate, setExchangeRate] = useState(null)
 
   useEffect(() => {
-    ExchangeRateEndpoint.getExchangeRates().then((response) => {
+    getExchangeRates().then((response) => {
       setExchangeRate(response.exchangeRates[0])
     })
   }, [])

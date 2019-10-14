@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { camelizeKeys } from 'humps'
-import ExchangeRateEndpoint from "../endpoints"
+import { getAdminExchangeRates } from "../endpoints"
 
 const AdminHistory = () => {
   const [exchangeRates, setExchangeRates] = useState([])
 
   useEffect(() => {
-    ExchangeRateEndpoint.getAdminExchangeRates().then((response) => {
+    getAdminExchangeRates().then((response) => {
       setExchangeRates(response.exchangeRates)
     })
   }, [])

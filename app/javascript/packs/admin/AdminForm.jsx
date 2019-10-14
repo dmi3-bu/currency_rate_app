@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import ExchangeRateEndpoint from '../endpoints'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const AdminForm = () => {
   const [rate, setRate] = useState('')
@@ -20,8 +22,8 @@ const AdminForm = () => {
     setRate(e.target.value)
   }
 
-  const handleValidTillChange = (e) => {
-    setValidTill(e.target.value)
+  const handleValidTillChange = (date) => {
+    setValidTill(date)
   }
 
   return (
@@ -36,12 +38,16 @@ const AdminForm = () => {
         {errors.rate && <small className="form-text text-danger">{errors.rate}</small>}
       </div>
       <div className="form-group">
-        <label>Активен до (в UTC):
-          <input type="datetime-local"
-                 className="form-control"
-                 value={validTill}
-                 onChange={handleValidTillChange}/>
-        </label>
+        <label>Активен до:</label>
+        <DatePicker
+          selected={validTill}
+          onChange={handleValidTillChange}
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={1}
+          timeCaption="time"
+          dateFormat="MMMM d, yyyy HH:mm"
+        />
         {errors.validTill && <small className="form-text text-danger">{errors.validTill}</small>}
       </div>
       <input type="submit" className="btn btn-primary" value="Отправить"/>

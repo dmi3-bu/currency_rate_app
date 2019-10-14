@@ -21,7 +21,7 @@ namespace :db do
   task deactivate_exchange_rate: :environment do
     rates = ExchangeRate.where(deleted_at: nil).admin.where('valid_till < current_timestamp')
     if rates.present?
-      rates.update(deleted_at: Time.now)
+      rates.update_all(deleted_at: Time.now)
       ActionCable.server.broadcast(
         'rates_channel',
         exchange_rates: [ExchangeRate.latest]

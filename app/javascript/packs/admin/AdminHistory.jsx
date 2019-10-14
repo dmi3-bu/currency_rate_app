@@ -12,7 +12,7 @@ const AdminHistory = () => {
   }, [])
 
   const convertDateTime = (dateTime) => {
-    return new Date(dateTime).toUTCString()
+    return new Date(dateTime).toLocaleString()
   }
 
   App.rates = App.cable.subscriptions.create({

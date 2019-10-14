@@ -1,6 +1,4 @@
 class Api::ExchangeRatesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
-
   def index
     exchange_rates =
       if params[:admin]

@@ -1,24 +1,26 @@
-# README
+# Currency rate app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+In this project the following technologies were used:
 
-Things you may want to cover:
+*   Ruby as main programming language;
+*   Rails as a web-application framework;
+*   RSpec for tests definitions and launching;
+*   PostgreSQL as a database;
+*   ReactJS as frontend framework;
+*   ActionCable for websocket connection;
+*   Whenever for scheduling rake tasks.
 
-* Ruby version
+## Usage
 
-* System dependencies
+### Initial setup
 
-* Configuration
+*   `bundle install`
+*   `rake db:create`
+*   `rake db:migrate`
 
-* Database creation
+### Running
 
-* Database initialization
+Run `localhost:3000` in latest version of Chrome or Firefox
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Testing
+    rspec

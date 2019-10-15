@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { createExchangeRate } from '../endpoints'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import ru from 'date-fns/locale/ru'
+
+registerLocale('ru', ru)
 
 const AdminForm = () => {
   const [rate, setRate] = useState('')
@@ -40,12 +43,13 @@ const AdminForm = () => {
       <div className="form-group">
         <label>Активен до:</label>
         <DatePicker
+          locale="ru"
           selected={validTill}
           onChange={handleValidTillChange}
           showTimeSelect
           timeFormat="HH:mm"
           timeIntervals={1}
-          timeCaption="time"
+          timeCaption="время"
           dateFormat="MMMM d, yyyy HH:mm"
         />
         {errors.validTill && <small className="form-text text-danger">{errors.validTill}</small>}

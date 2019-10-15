@@ -19,7 +19,7 @@ namespace :db do
 
   desc 'Check for old admin exchange rates and deactivate them'
   task deactivate_exchange_rate: :environment do
-    rates = ExchangeRate.where(deleted_at: nil).admin.where('valid_till < current_timestamp')
+    rates = ExchangeRate.where(deleted_at: nil).admin.invalid
     if rates.present?
       rates.update_all(deleted_at: Time.now)
       ActionCable.server.broadcast(

@@ -1,6 +1,8 @@
 class ExchangeRate < ApplicationRecord
   scope :admin, -> { where(admin: true) }
   scope :non_admin, -> { where(admin: false) }
+  scope :valid, -> { where('valid_till > ?', Time.now) }
+  scope :invalid, -> { where('valid_till < ?', Time.now) }
 
   validate :valid_rate
   validate :valid_till_presence
@@ -17,6 +19,6 @@ class ExchangeRate < ApplicationRecord
   end
 
   def self.latest
-    ExchangeRate.admin.where('valid_till > current_timestamp').last || ExchangeRate.non_admin.last
+    ExchangeRate.admin.valid.last || ExchangeRate.non_admin.last
   end
 end

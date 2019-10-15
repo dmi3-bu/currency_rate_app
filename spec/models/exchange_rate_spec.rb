@@ -53,7 +53,7 @@ RSpec.describe ExchangeRate, type: :model do
 
     context 'when valid_till is old' do
       let(:rate) { rand(1.0...100.0).round(2) }
-      let(:valid_till) { Time.now }
+      let(:valid_till) { Time.now - 1.minute }
 
       it 'fails to save' do
         expect(@rate.errors.details).to include(:valid_till)

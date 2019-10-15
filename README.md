@@ -15,12 +15,16 @@ In this project the following technologies were used:
 ### Initial setup
 
 *   `bundle install`
+*   `yarn install`
 *   `rake db:create`
 *   `rake db:migrate`
+*   `whenever --update-crontab --set environment=development`
 
 ### Running
 
-Run `localhost:3000` in latest version of Chrome or Firefox
+    foreman start
+
+Then run `localhost:3000` in latest version of Chrome or Firefox
 
 ### Testing
     rspec
